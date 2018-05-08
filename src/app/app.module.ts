@@ -1,11 +1,11 @@
-import { BrowserModule }    from '@angular/platform-browser';
+import { BrowserModule, Title }    from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule }         from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PagesModule }      from './pages/pages.module';
 //import { PostsModule }      from './posts/posts.module';
-//import { ProjectsModule }   from './projects/projects.module';
+import { ProjectsModule }   from './projects/projects.module';
 
 import { AppComponent }          from './app.component';
 import { HomeComponent }         from './home.component';
@@ -20,10 +20,10 @@ import { PageTitleService }    from './page-title.service';
   imports: [
     BrowserModule,
     HttpClientModule,
+    ProjectsModule, //must come before pages
     PagesModule,
-    //   PostsModule,
-    // ProjectsModule,
-    AppRoutingModule
+    //PostsModule,
+    AppRoutingModule //must come last
   ],
   declarations: [
     AppComponent,
@@ -31,6 +31,7 @@ import { PageTitleService }    from './page-title.service';
     PageNotFoundComponent
   ],
   providers: [
+    Title,
     PageService,
     PageTitleService
     //PostService,

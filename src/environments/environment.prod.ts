@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  docTitlePrefix: 'ic4f: ',
+  defaultDocTitle: "Sergey Golitsynskiy's website"
 };
