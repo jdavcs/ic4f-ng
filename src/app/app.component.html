@@ -1,2 +1,53 @@
-app component
+<div class="container ic4f-container">
+
+  <div class="row ic4f-contact-row">
+    <div class="col">
+      social media
+    </div>
+  </div>
+
+  <div class="row ic4f-logo-row">
+    <div class="col-sm-4">
+      <a class="ic4f-logo" href="/">i<span class="part-c">c</span><span class="part-ode">ode</span>4<span class="part-dot">.</span>f<span class="part-un">un</span></a>
+    </div>
+    <div class="col-sm-8 ic4f-nav-container">
+
+      <nav class="ic4f-nav">
+        <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">blog</a>
+        <a routerLink="projects" routerLinkActive="active">projects</a>
+        <a routerLink="about" routerLinkActive="active">about</a>
+        <a href="http://sergey.cs.uni.edu">edu</a>
+        <a href="https://github.com/ic4f">github</a>
+      </nav>
+    </div>
+  </div>
+
+</div>
+
+<div class="ic4f-hline"></div>
+
+<div class="container ic4f-container">
+  <div class="row">
+    <div class="col ic4f-content">
+      <h1 class="ic4f-main-heading">{{ title }}</h1>
+
       <router-outlet></router-outlet>
+
+    </div>
+  </div>
+</div>
+
+<div class="ic4f-hline"></div>
+
+<div class="container ic4f-container">
+  <div class="row">
+    <div class="col ic4f-footer">
+      Site modified:...
+    </div>
+  </div>
+</div>
+
+<div id="modal">
+  <div id="modal-caption"></div>
+</div>
+
