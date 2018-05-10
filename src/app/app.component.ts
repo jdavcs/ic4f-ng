@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { environment } from '../environments/environment';
 
-import { PageTitleService } from './page-title.service';
+import { PageTitleService } from './shared/page-title.service';
 
 @Component({
   selector: 'app-root',

@@ -1,4 +1,4 @@
-import { BrowserModule, Title }    from '@angular/platform-browser';
+import { BrowserModule }    from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule }         from '@angular/core';
 
@@ -12,9 +12,9 @@ import { HomeComponent }         from './home.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
 import { PageService }    from './pages/page.service';
-import { PageTitleService }    from './page-title.service';
+import { ProjectDataService }    from './projects/project-data.service';
 //import { PostService }    from './posts/post.service';
-//import { ProjectService } from './projects/project.service';
+import { ProjectService } from './projects/project.service';
 
 @NgModule({
   imports: [
@@ -31,11 +31,10 @@ import { PageTitleService }    from './page-title.service';
     PageNotFoundComponent
   ],
   providers: [
-    Title,
     PageService,
-    PageTitleService
     //PostService,
-    //ProjectService
+    ProjectDataService,
+    ProjectService
   ],
   bootstrap: [AppComponent]
 })

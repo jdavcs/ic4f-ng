@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, NavigationExtras, ParamMap } from '@angular/rou
 
 import { Page } from './page';
 import { PageService } from './page.service';
-import { PageTitleService } from '../page-title.service';
+import { PageTitleService } from '../shared/page-title.service';
 
 
 @Component({

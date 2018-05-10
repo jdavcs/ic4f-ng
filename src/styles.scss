@@ -15,14 +15,18 @@ $gray7:  #f8f8f8;
 $gray8:  #777;
 $blue:   #1E76D4;
 $blue2: $blue * .9;
-$blue3: green; /* bootstrap */
+$blue3: green; /* bootstrap  ?????*/
 /*$blue3: #007bff;*/ /* bootstrap */
 $blue5:   #1E76D4;
 $blue15: #4f9ce8;
-
+$green:  #26a300;
 
 a {
   color: $blue;
+}
+
+a:hover {
+  color: $green;
 }
 
 
@@ -33,11 +37,14 @@ tr.found{
 }
 
 .ic4f-h-filter-container {
-  margin-bottom: 1em;
-  text-align: center;
+  margin-bottom: .5em;
 
   select, option {
     font-size: .9em;
+  }
+
+  div {
+    margin-bottom: .5em;
   }
 }
 
@@ -81,6 +88,15 @@ table.ic4f-projects {
     width: 5em;
   }
 
+  .cell-project-detail-num {
+    background: #fffded!important;
+  }
+
+  .cell-project-detail {
+    padding: 1em!important;
+    background: #fffded!important;
+  }
+
   .project-name {
     font-weight: bold;
     display: block;
@@ -104,7 +120,47 @@ table.ic4f-projects {
     @extend .project-comment-repo;
     color: $gray8;
   }
+
+  .cell-codelink {
+    font-size: .85em;
+    line-height: 1.2em;
+  }
+
+  .github {
+    font-weight: bold;
+  }
+
+  .show-more-less {
+    font-size: .85em;
+  }
+
+
+
+  .screenshots {
+
+    img {
+      margin-top: 1em;
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .ic4f-contact-row {
   text-align: right;
@@ -328,6 +384,38 @@ h4, h5, h6 {
     }
   }
 }
+
+.lang-bash { color: #8c4444; }
+.lang-c { color: #ff3d3d; }
+.lang-cs { color: #008080; }
+.lang-htmlcss { color: #909090; }
+.lang-java { color: #f76700; }
+.lang-mumps { color: #955734; }
+.lang-php { color: #777bb3;  }
+.lang-python { color: #1258dc; }
+.lang-ruby { color: #c65853; }
+.lang-sass { color: #4e9696; }
+.lang-sql { color: #7f4fc1; }
+.lang-typescript { color: #2e5891; }
+.lang-vimscript { color: #217f40; }
+.lang-yaml { color: #6191aa; }
+
+
+.lang6 { color: #028bd6;  } /* javascript */
+.lang6 { color: #f0a404;  } /* javascript */
+
+
+.lang14 { color: #a31c08; } /* vb.net */
+.lang15 { color: #69ad54; } /* vbscript */
+
+
+
+
+
+.activeLang {
+  font-weight: bold;
+}
+
 
 
 

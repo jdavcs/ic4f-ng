@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { PageTitleService } from './page-title.service';
+import { PageTitleService } from './shared/page-title.service';
 import { environment } from '../environments/environment';
 
 @Component({
