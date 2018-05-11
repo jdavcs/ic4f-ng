@@ -2,7 +2,7 @@
 
 html { margin-left: calc(100vw - 100%); } /* prevents 'jumping' caused by scroll bar */
 
-  
+
 @import url('https://fonts.googleapis.com/css?family=Handlee|Raleway:300');
 
 $gray1:  #555;
@@ -33,20 +33,30 @@ a:hover {
 table.table-striped>tbody>tr:nth-child(odd)>td,
 table.table-striped>tbody>tr:nth-child(odd)>th,
 tr.found{
-    background-color: $gray7; 
+  background-color: $gray7; 
 }
 
 .ic4f-h-filter-container {
   margin-bottom: .5em;
 
-  select, option {
+  select, option, button {
     font-size: .9em;
   }
 
   div {
     margin-bottom: .5em;
   }
+
+  button.ic4f-reset {
+    color: #495057; /* bootsrap custom select */
+    border: 1px solid #ced4da; /*bootstrap custom select */
+    height: calc(2.25rem + 2px);/*bootstrap custom select */
+  }
+
 }
+
+
+
 
 table.ic4f-projects {
   font-size: .9em;
@@ -58,7 +68,7 @@ table.ic4f-projects {
   td {
     padding: 6px;
   }
-  
+
   .cell-project {
     color: #666;
 
@@ -106,7 +116,6 @@ table.ic4f-projects {
   .project-count {
     @extend .project-name;
     white-space: nowrap;
-    font-size: 0.8em;
   }
 
   .project-comment-repo {
@@ -124,6 +133,12 @@ table.ic4f-projects {
   .cell-codelink {
     font-size: .85em;
     line-height: 1.2em;
+
+    a {
+      display: block;
+      width: 100%;
+      padding: .5em 0 .5em 0;
+    }
   }
 
   .github {
@@ -135,7 +150,6 @@ table.ic4f-projects {
   }
 
 
-
   .screenshots {
 
     img {
@@ -143,7 +157,6 @@ table.ic4f-projects {
     }
   }
 }
-
 
 
 
@@ -217,7 +230,7 @@ table.ic4f-projects {
     @extend .part;
     margin-left: -3px;
   }
-  
+
   .part-un {
     @extend .part;
     margin-left: -3px;
@@ -225,7 +238,7 @@ table.ic4f-projects {
 }
 
 .ic4f-nav {
-/*  font-family: 'Raleway', sans-serif; */
+  /*  font-family: 'Raleway', sans-serif; */
   font-size: 1.1rem;
   padding: 0;
   text-align: right;
@@ -390,6 +403,7 @@ h4, h5, h6 {
 .lang-cs { color: #008080; }
 .lang-htmlcss { color: #909090; }
 .lang-java { color: #f76700; }
+.lang-javascript { color: #f0a404;  }
 .lang-mumps { color: #955734; }
 .lang-php { color: #777bb3;  }
 .lang-python { color: #1258dc; }
@@ -397,25 +411,20 @@ h4, h5, h6 {
 .lang-sass { color: #4e9696; }
 .lang-sql { color: #7f4fc1; }
 .lang-typescript { color: #2e5891; }
+.lang-vbnet { color: #5e9984; }
+.lang-vbscript { color: #af77a0; }
 .lang-vimscript { color: #217f40; }
 .lang-yaml { color: #6191aa; }
 
 
-.lang6 { color: #028bd6;  } /* javascript */
-.lang6 { color: #f0a404;  } /* javascript */
-
-
-.lang14 { color: #a31c08; } /* vb.net */
-.lang15 { color: #69ad54; } /* vbscript */
 
 
 
 
 
-.activeLang {
+
+
+.selectedLanguage {
   font-weight: bold;
 }
-
-
-
 

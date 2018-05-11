@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { Project } from './project';
-import { Tool } from './tool';
+import { Feature } from './feature';
 
 @Injectable()
 export class ProjectService {
   static READ_URL_PROJECTS:   string = '/api/projects';
+  static READ_URL_GROUPS:  string = '/api/groups';
   static READ_URL_LANGUAGES:  string = '/api/languages';
   static READ_URL_FRAMEWORKS: string = '/api/frameworks';
   static READ_URL_DATABASES:  string = '/api/databases';
@@ -19,18 +20,23 @@ export class ProjectService {
     return this.http.get<Project[]>(url);
   }
 
-  getLanguages(): Observable<Tool[]> {
+  getGroups(): Observable<Feature[]> {
+    const url = ProjectService.READ_URL_GROUPS;
+    return this.http.get<Feature[]>(url);
+  }
+
+  getLanguages(): Observable<Feature[]> {
     const url = ProjectService.READ_URL_LANGUAGES;
-    return this.http.get<Tool[]>(url);
+    return this.http.get<Feature[]>(url);
   }
 
-  getFrameworks(): Observable<Tool[]> {
+  getFrameworks(): Observable<Feature[]> {
     const url = ProjectService.READ_URL_FRAMEWORKS;
-    return this.http.get<Tool[]>(url);
+    return this.http.get<Feature[]>(url);
   }
 
-  getDatabases(): Observable<Tool[]> {
+  getDatabases(): Observable<Feature[]> {
     const url = ProjectService.READ_URL_DATABASES;
-    return this.http.get<Tool[]>(url);
+    return this.http.get<Feature[]>(url);
   }
 }

@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
-import { PageScrollService } from '../shared/page-scroll.service';
+import { environment } from '../../environments/environment';
 
 import { Project } from './project';
-import { Tool } from './tool';
+import { Feature } from './feature';
 import { ProjectDataService } from './project-data.service';
 import { ProjectService } from './project.service';
 import { PageTitleService } from '../shared/page-title.service';
@@ -14,10 +13,13 @@ import { PageTitleService } from '../shared/page-title.service';
 })
 export class ProjectListComponent implements OnInit {
   projects: Project[];
-  languages: Tool[];
-  frameworks: Tool[];
-  databases: Tool[];
+  groups: Feature[];
+  languages: Feature[];
+  frameworks: Feature[];
+  databases: Feature[];
+  langColors: Map<string, string>;
 
+  selectedGroup: string;
   selectedLanguage: string;
   selectedFramework: string;
   selectedDatabase: string;
@@ -26,14 +28,14 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private projectDataService: ProjectDataService,
     private projectService: ProjectService,
-    private pageTitleService: PageTitleService,
-    private pageScrollService: PageScrollService
+    private pageTitleService: PageTitleService
   ) {}
 
   ngOnInit() {
     this.resetFilters();
     this.resetDisplayedProjects();
     this.pageTitleService.setTitle('Selected Projects');
+    this.initColors();
 
     /* If cache is empty: retrieve data from db; store in cache; unsubscribe;
      * else: get data from cache
@@ -45,6 +47,12 @@ export class ProjectListComponent implements OnInit {
         this.projects = data;
         this.projectDataService.projects = data;
         projSubscription.unsubscribe();
+      });
+
+      let groupSubscription = this.projectService.getGroups().subscribe(data => {
+        this.groups = data;
+        this.projectDataService.groups = data;
+        groupSubscription.unsubscribe();
       });
 
       let langSubscription = this.projectService.getLanguages().subscribe(data => {
@@ -70,12 +78,20 @@ export class ProjectListComponent implements OnInit {
       console.log('calling cache'); //TODO remove this
       this.projects = this.projectDataService.projects;
       this.languages = this.projectDataService.languages;
+      this.groups = this.projectDataService.groups;
       this.frameworks = this.projectDataService.frameworks;
       this.databases = this.projectDataService.databases;
     }
   }
 
+  reset() {
+    this.resetFilters();
+    this.resetDisplayedProjects();
+    this.projects = this.projectDataService.projects;
+  }
+
   resetFilters() {
+    this.selectedGroup = '';
     this.selectedLanguage = '';
     this.selectedFramework = '';
     this.selectedDatabase = '';
@@ -83,6 +99,34 @@ export class ProjectListComponent implements OnInit {
 
   resetDisplayedProjects() {
     this.displayedProjects = [];
+  }
+
+  initColors() {
+    this.langColors = new Map();
+    this.langColors.set('bash', 'lang-bash'); 
+    this.langColors.set('c', 'lang-c');
+    this.langColors.set('c_sharp', 'lang-cs');
+    this.langColors.set('html', 'lang-htmlcss');
+    this.langColors.set('css', 'lang-htmlcss');
+    this.langColors.set('java', 'lang-java');
+    this.langColors.set('javascript', 'lang-javascript');
+    this.langColors.set('mumps', 'lang-mumps');
+    this.langColors.set('php', 'lang-php');
+    this.langColors.set('python', 'lang-python');
+    this.langColors.set('ruby', 'lang-ruby');
+    this.langColors.set('sql', 'lang-sql');
+    this.langColors.set('sass', 'lang-sass');
+    this.langColors.set('typescript', 'lang-typescript');
+    this.langColors.set('vbnet', 'lang-vbnet');
+    this.langColors.set('vbscript', 'lang-vbscript');
+    this.langColors.set('vimscript', 'lang-vimscript');
+    this.langColors.set('yaml', 'lang-yaml');
+  }
+
+  filterByGroup(id: string) {
+    this.resetFilters();
+    this.selectedGroup = id;
+    this.filterBy(id, this.projectGroup);
   }
 
   filterByLanguage(id: string) {
@@ -103,7 +147,7 @@ export class ProjectListComponent implements OnInit {
     this.filterBy(id, this.projectDatabases);
   }
 
-  filterBy(id: string, projectTools) {
+  filterBy(id: string, projectFeatures) {
     this.resetDisplayedProjects();
     if (id == "") {
       this.projects = this.projectDataService.projects;
@@ -111,99 +155,61 @@ export class ProjectListComponent implements OnInit {
     else {
       /* Filter project array: create array of ids, then filter it to include only those */
       this.projects = this.projectDataService.projects.filter(project => 
-        projectTools(project).map(item => item._id).indexOf(id) > -1
+        projectFeatures(project).map(item => item._id).indexOf(id) > -1
       );
     }
   }
 
-  projectLanguages(project: Project): Tool[] {
+  projectGroup(project: Project): Feature[] {
+    return project.group;
+  }
+
+  projectLanguages(project: Project): Feature[] {
     return project.languages;
   }
 
-  projectFrameworks(project: Project): Tool[] {
+  projectFrameworks(project: Project): Feature[] {
     return project.frameworks;
   }
 
-  projectDatabases(project: Project): Tool[] {
+  projectDatabases(project: Project): Feature[] {
     return project.databases;
   }
 
-
-
-
-
-  //TODO it would be very cool if I could also reorder the languages!
-  //or make it bold.
-
-  filterByLang(langId: string) {
-    //create array of ids, then filter it to include only those matching id
-    this.projects = this.projectDataService.projects.filter(project => 
-      project.languages
-      .map(l => l._id) 
-      .indexOf(langId) > -1
-    );
+  getName(p: Project) {
+    let name: string = p.name;
+    if (p.project_count > 1) {
+      name += `<span class="project-count">(~${p.project_count} projects)</span>`;
+    }
+    return name;
   }
 
-
-
-  listLanguages(project: Project): string {
-
+  listLanguages(p: Project): string {
     const newList = [];
-    for (let lang of project.languages) {
+    let foundHtml: boolean = false;
 
-      //      let foundHtml: boolean = false;
-      //      if (lang._id == 'html') {
-      //        foundHtml = true;
-      //        lang.name = 'HTML/CSS';
-      //      }
-      //      if (lang._id == 'css') {
-      //        lang.name = '';
-      //      }
-      //
-      if (lang.name != '') {
-        let n = '<span class="' + this.getLangColor(lang.name) + ' ' + this.getLangActiveClass(lang._id) + '">' + lang.name + '</span>';
-        newList.push(n);
+    for (let lang of p.languages) {
+      /* combine HTML and CSS into HTML/CSS. Because why not! */
+      let name: string = lang.name;
+      if (lang._id === 'html') {
+        foundHtml = true;
+        name = 'HTML/CSS';
+      }
+      else if (foundHtml && lang._id === 'css') {
+        name = '';
+      }
+
+      if (name != '') { /* this ignores 'CSS' set to empty */
+        name = `<span class="${this.langColors.get(lang._id)} ${this.getSelectedLanguageClass(lang._id)}">${name}</span>`;
+        newList.push(name);
       }
     }
     return newList.join(', ');
   }
 
-
-  getLangActiveClass(id) {
-    if (id == this.selectedLanguage) {
-      return 'activeLang';
-    }
-    return  '';
+  getSelectedLanguageClass(id) {
+    return id == this.selectedLanguage ? 'selectedLanguage' : '';
   }
-
-  getLangColor(lang) {
-    if (lang == 'Bash') { return 'lang-bash'; } 
-    if (lang == 'C') { return 'lang-c'; } 
-    if (lang == 'C#') { return 'lang-cs'; } 
-    if (lang == 'HTML/CSS') { return 'lang-htmlcss'; } 
-    if (lang == 'Java') { return 'lang-java'; } 
-    if (lang == 'JavaScript') { return 'lang6'; } 
-    if (lang == 'MUMPS') { return 'lang-mumps'; } 
-    if (lang == 'PHP') { return 'lang-php'; } 
-    if (lang == 'Python') { return 'lang-python'; } 
-    if (lang == 'Ruby') { return 'lang-ruby'; } 
-    if (lang == 'SQL') { return 'lang-sql'; } 
-    if (lang == 'Sass') { return 'lang-sass'; } 
-    if (lang == 'TypeScript') { return 'lang-typescript'; } 
-    if (lang == 'VB.Net') { return 'lang14'; } 
-    if (lang == 'VBScript') { return 'lang15'; } 
-    if (lang == 'Vimscript') { return 'lang-vimscript'; } 
-    if (lang == 'YAML') { return 'lang-yaml'; } 
-  }
-
-
-
-
-
-
-
-
-
 
   listFrameworks(project: Project): string {
     return project.frameworks.map(item => item.name).join(', ');
@@ -215,14 +221,9 @@ export class ProjectListComponent implements OnInit {
 
   getCodeLink(project: Project): string {
     if (project.github_repo !== '') {
-      return '<a href="">Project on <span class="github">GitHub</span></a>';
+      return `<a target="_blank" href="${environment.githubBaseUrl}/${project.github_repo}"><span class="github">GitHub</span> repo</a>`;
     }
-    else if (project.github_oldcode) {
-      return '<a href="">sample code</a>';
-    }
-    else {
-      return '';
-    }
+    return '';
   }
 
   showDetail(id: string) {

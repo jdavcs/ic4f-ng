@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 
 import { Project } from './project';
-import { Tool } from './tool';
+import { Feature } from './feature';
 
 @Injectable()
 export class ProjectDataService {
   private projectData: Project[];
-  private languageData: Tool[];
-  private frameworkData: Tool[];
-  private databaseData: Tool[];
+  private groupData: Feature[];
+  private languageData: Feature[];
+  private frameworkData: Feature[];
+  private databaseData: Feature[];
 
   isDataLoaded() {
-    return this.projectData && this.languageData && this.frameworkData && this.databaseData;
+    return this.projectData && this.groupData && this.languageData && this.frameworkData && this.databaseData;
   }
 
   get projects(): Project[] {
@@ -22,27 +23,34 @@ export class ProjectDataService {
     this.projectData = data;
   }
 
-  get languages(): Tool[] {
+  get groups(): Feature[] {
+    return this.groupData;
+  }
+
+  set groups(data: Feature[]) {
+    this.groupData = data;
+  }
+  get languages(): Feature[] {
     return this.languageData;
   }
 
-  set languages(data: Tool[]) {
+  set languages(data: Feature[]) {
     this.languageData = data;
   }
 
-  get frameworks(): Tool[] {
+  get frameworks(): Feature[] {
     return this.frameworkData;
   }
 
-  set frameworks(data: Tool[]) {
+  set frameworks(data: Feature[]) {
     this.frameworkData = data;
   }
 
-  get databases(): Tool[] {
+  get databases(): Feature[] {
     return this.databaseData;
   }
 
-  set databases(data: Tool[]) {
+  set databases(data: Feature[]) {
     this.databaseData = data;
   }
 }

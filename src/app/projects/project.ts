@@ -1,10 +1,10 @@
-import { Tool } from './tool';
+import { Feature } from './feature';
 
 export interface Project {
   readonly _id: string;
   readonly name: string;
   readonly description: string;
-  readonly group: string;
+  readonly group: Feature[];
   readonly project_name: string;
   readonly project_count: number;
   readonly order: number;
@@ -12,7 +12,7 @@ export interface Project {
   readonly year_end: number;
   readonly github_repo: string;
   readonly github_oldcode: boolean;
-  readonly languages: Tool[];
-  readonly frameworks: Tool[];
-  readonly databases: Tool[];
+  readonly languages: Feature[];
+  readonly frameworks: Feature[];
+  readonly databases: Feature[];
 }

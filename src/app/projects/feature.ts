@@ -1,4 +1,4 @@
-export interface Tool {
+export interface Feature {
   readonly _id: string;
   readonly name: string;
   readonly projects: number;

@@ -6,80 +6,57 @@
   <br><br>
 
 
-  <!--
-    <div class="row test42 justify-content-md-center">
-
-    <div class="col-md-auto test43">
-    <a href="">This website++</a> <span class="foo42">(3 projects)</span><br>
-    <a href="">Digital image archive</a> <span class="foo42">(2 projects)</span><br>
-    <a href="">Text analysis &amp; IR</a> <span class="foo42">(8 projects)</span><br>
-    </div>
-    <div class="col-md-auto test43">
-    <a href="">E-discovery</a> <span class="foo42">(1 project)</span><br>
-    <a href="">Cool school stuff</a> <span class="foo42">(3 projects)</span><br>
-    <a href="">Plugins for Vim</a> <span class="foo42">(3 projects)</span><br>
-    </div>
-    <div class="col-md-auto test43">
-    <a href="">ORM &amp; code generation</a> <span class="foo42">(1 project)</span><br>
-    <a href="">Content management</a> <span class="foo42">(32 projects)</span><br>
-    <a href="">Static websites</a> <span class="foo42">(30 projects)</span><br>
-    </div>
-
-    </div>
-  -->
-
-
-
   <div class="form-row ic4f-h-filter-container">
+    <div class="col">
+      <div class="form-row">
+        <div class="col-sm-3">
 
-    <div class="col-sm-3">
-      <select class="custom-select">
-        <option selected>all project types</option>
-        <option>This website++
-        <option>Digital image archive
-        <option>Text analysis &amp; IR
-        <option>E-discovery
-        <option>Cool school stuff
-        <option>Plugins for Vim
-        <option>ORM &amp; code generation
-        <option>Content management
-        <option>Static websites
-      </select>
+          <select class="custom-select" *ngIf="languages" 
+                  (change)="filterByGroup($event.target.value)">
+            <option selected value="">all project groups</option>
+            <option *ngFor="let item of groups" [value]="item._id" [selected]="selectedGroup == item._id">
+            {{item.name}} ({{item.projects}})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-3">
+          <select class="custom-select" *ngIf="languages" 
+                  (change)="filterByLanguage($event.target.value)">
+            <option selected value="">all languages</option>
+            <option *ngFor="let item of languages" [value]="item._id" [selected]="selectedLanguage == item._id">
+            {{item.name}} ({{item.projects}})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-3">
+          <select class="custom-select" *ngIf="frameworks"
+                  (change)="filterByFramework($event.target.value)">
+            <option selected value="">all frameworks</option>
+            <option  *ngFor="let item of frameworks" [value]="item._id" [selected]="selectedFramework == item._id">
+            {{item.name}} ({{item.projects}})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-sm-3">
+          <select class="custom-select" *ngIf="databases"
+                  (change)="filterByDatabase($event.target.value)">
+            <option selected value="">all databases</option>
+            <option  *ngFor="let item of databases" [value]="item._id" [selected]="selectedDatabase == item._id">
+            {{item.name}} ({{item.projects}})
+            </option>
+          </select>
+        </div>
+
+      </div>
     </div>
-
-    <div class="col-sm-3">
-      <select class="custom-select" *ngIf="languages" 
-              (change)="filterByLanguage($event.target.value)">
-        <option selected value="">all languages</option>
-        <option *ngFor="let item of languages" 
-                         [value]="item._id" [selected]="selectedLanguage == item._id">
-        {{item.name}} ({{item.projects}})
-        </option>
-      </select>
-    </div>
-
-    <div class="col-sm-3">
-      <select class="custom-select" *ngIf="frameworks"
-              (change)="filterByFramework($event.target.value)">
-        <option selected value="">all frameworks</option>
-        <option  *ngFor="let item of frameworks"
-                         [value]="item._id" [selected]="selectedFramework == item._id">
-        {{item.name}} ({{item.projects}})
-        </option>
-      </select>
-    </div>
-
-    <div class="col-sm-3">
-      <select class="custom-select" *ngIf="databases"
-              (change)="filterByDatabase($event.target.value)">
-        <option selected value="">all databases</option>
-        <option  *ngFor="let item of databases"
-                         [value]="item._id" [selected]="selectedDatabase == item._id">
-        {{item.name}} ({{item.projects}})
-        </option>
-      </select>
+    <div class="col-auto">
+      <button class="btn btn-light ic4f-reset" (click)="reset()">reset</button>
     </div>
   </div>
+
 
   <table class="table table-bordered table-striped ic4f-projects">
     <tr>
@@ -92,15 +69,12 @@
       <th class="text-center">databases</th>
       <th class="text-center">code</th>
     </tr>
-
     <tr *ngFor="let p of projects; let i=index" id="{{p._id}}">
 
       <ng-container *ngIf="displayedProjects.indexOf(p._id) == -1">
-
         <td class="text-center">{{i+1}}</td>
-        <td class="cell-project">{{ p.name }}</td>
+        <td class="cell-project" [innerHtml]="getName(p)"></td>
         <td class="cell-years">{{ p.year_start | yearSpan: p.year_end }}</td>
-
         <td>
           {{ p.description }}
           <button (click)="showDetail(p._id)" class="btn btn-link">show more</button>
@@ -109,45 +83,16 @@
         <td class="text-center">{{ listFrameworks(p) }}</td>
         <td class="text-center">{{ listDatabases(p) }}</td>
         <td class="text-center align-middle cell-codelink" [innerHtml]="getCodeLink(p)"></td>
-
       </ng-container>
 
       <ng-container *ngIf="displayedProjects.indexOf(p._id) > -1">
-
         <td class="text-center cell-project-detail-num">{{i+1}}</td>
         <td colspan="7" class="cell-project-detail">
-          <h1>{{p._id}}</h1>
           <app-project-detail></app-project-detail>
         </td>
-
       </ng-container>
 
-
     </tr>
-
   </table>
 
-
-
 </ng-container>
-
-<!--
-  <br><span class="lang-bash" >Bash</span>
-  <br><span class="lang-c" >C</span>
-  <br><span class="lang-cs" >C#</span>
-  <br><span class="lang-htmlcss" >HTML/CSS</span>
-  <br><span class="lang-java" >Java</span>
-  <br><span class="lang6" >JavaScript</span>
-  <br><span class="lang-mumps" >MUMPS</span>
-  <br><span class="lang-php" >PHP</span>
-  <br><span class="lang-python" >Python</span>
-  <br><span class="lang-ruby">Ruby</span>
-  <br><span class="lang-sql">SQL</span>
-  <br><span class="lang-sass">Sass</span>
-  <br><span class="lang-typescript">TypeScript</span>
-  <br><span class="lang14">VB.Net</span>
-  <br><span class="lang15">VBScript</span>
-  <br><span class="lang-vimscript">Vimscript</span>
-  <br><span class="lang-yaml">YAML</span>
--->
-
