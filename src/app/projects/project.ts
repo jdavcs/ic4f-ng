@@ -11,8 +11,10 @@ export interface Project {
   readonly year_start: number;
   readonly year_end: number;
   readonly github_repo: string;
-  readonly github_oldcode: boolean;
+  readonly github_oldcode: string;
+  readonly has_content: boolean;
   readonly languages: Feature[];
   readonly frameworks: Feature[];
   readonly databases: Feature[];
+  readonly content: string;
 }

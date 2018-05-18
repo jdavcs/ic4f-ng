@@ -3,7 +3,10 @@
   Text about project groups and what all this is goes here. How they are organized, and why some have
   a lot (30, 32) and some just one - because they are different types of stuff. And that some are cool
   (edisco, orm, playerc), and some are boring (static, cms).
-  <br><br>
+  <p>A few projects have <b>show more</b> links - these will expand to display more
+technical detail, sample code, links to publications, screenshots... <br><br>
+
+does not include individual apps (registration, donate, this and that - for prsa and uni)
 
 
   <div class="form-row ic4f-h-filter-container">
@@ -11,7 +14,7 @@
       <div class="form-row">
         <div class="col-sm-3">
 
-          <select class="custom-select" *ngIf="languages" 
+          <select class="custom-select" *ngIf="groups" 
                   (change)="filterByGroup($event.target.value)">
             <option selected value="">all project groups</option>
             <option *ngFor="let item of groups" [value]="item._id" [selected]="selectedGroup == item._id">
@@ -71,13 +74,13 @@
     </tr>
     <tr *ngFor="let p of projects; let i=index" id="{{p._id}}">
 
-      <ng-container *ngIf="displayedProjects.indexOf(p._id) == -1">
+      <ng-container *ngIf="!displayedProjects.has(p._id)">
         <td class="text-center">{{i+1}}</td>
         <td class="cell-project" [innerHtml]="getName(p)"></td>
         <td class="cell-years">{{ p.year_start | yearSpan: p.year_end }}</td>
         <td>
           {{ p.description }}
-          <button (click)="showDetail(p._id)" class="btn btn-link">show more</button>
+          <button (click)="showDetail(p._id)" class="btn btn-link showmore" *ngIf="p.has_content">show more</button>
         </td>
         <td [innerHtml]="listLanguages(p)"></td>
         <td class="text-center">{{ listFrameworks(p) }}</td>
@@ -85,10 +88,10 @@
         <td class="text-center align-middle cell-codelink" [innerHtml]="getCodeLink(p)"></td>
       </ng-container>
 
-      <ng-container *ngIf="displayedProjects.indexOf(p._id) > -1">
+      <ng-container *ngIf="displayedProjects.has(p._id)">
         <td class="text-center cell-project-detail-num">{{i+1}}</td>
         <td colspan="7" class="cell-project-detail">
-          <app-project-detail></app-project-detail>
+          <app-project-detail [project]="p" (closeRequest)="hideDetail($event)"></app-project-detail>
         </td>
       </ng-container>
 

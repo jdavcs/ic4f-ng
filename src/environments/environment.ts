@@ -7,5 +7,6 @@ export const environment = {
   production: false,
   docTitlePrefix: 'ic4f: ',
   defaultDocTitle: "Sergey Golitsynskiy's website",
-  githubBaseUrl: 'https://github.com/ic4f'
+  githubBaseUrl: 'https://github.com/ic4f',
+  githubOldcodeRepoSubdir: 'oldcode/tree/master'
 };

@@ -1,80 +1,32 @@
-<h1>icode4.fun-api</h1>
+
+<button (click)="closeDetail()" class="btn btn-outline-primary showless">hide details</button>
+
+<h1>{{ project.name }}</h1>
 
 
-<p>What is this: A system for processing large email archives and building collections for eDiscovery research. Used to build the Avocado email research collection (published by the Linguistic Data Consortium).
+<div class="summary">
+<p><span class="subheading">Developed:</span> {{ project.year_start | yearSpan: project.year_end }}</p>
 
+<p><span class="subheading">Technology:</span>
 
-<p><a target="_blank" href="https://github.com/ic4f/pluto/blob/master/python/distro/builder.py">sample code: pst extraction script</a>
+<ng-container *ngIf="project.frameworks.length > 0">
+  {{ listFrameworks(project) }} /
+</ng-container>
 
-<p><b>Developed:</b> 2011-2012 (E-Discovery Lab, University of Maryland, College Park)
+<ng-container *ngIf="project.databases.length > 0">
+  {{ listDatabases(project) }} /
+</ng-container>
 
-<p><b>Technology:</b> 
-System written mostly in Python with some Java. MySQL as the database. Relies on the libpst library for extracting PST a
-Included a web-based admin interface for exploring the dataset, written in PHP and JavaScript.
+{{ listLanguages(project) }}
 
-<h4>My part</h4>
-<p>Initial datset: an email archive of a defunct company
-<p>I was hired to build the collection. My work fell into two categories: (1) developing the processing pipeline (and designing the xml-based format for the collection?)
-(with help from William, Mosaab, and Doug, my PI)
-
-<p>
-The initial data set consisted of 283 Microsoft PST files (66GB)
-<p>My task: extract, arrange, catalogue, redact into organized corpus to be shared with research community
-
-<h4>
-  - Processing Stages:</h4>
-
-<ol>
-  <li>PST file extraction
-    <li>File deduplication
-      <li>MIME-type identification
-        <li>Archive extraction
-          <li>Text extraction
-            <li>distribution?
-</ol>
-
-<p>In brief, about each step, especialy your XML work:
-- task, approach, challenges, solution
-
-
-<h4>What was fun</h4>
-<ul>
-  <li>organizing 60 gigabytes of data
-    <li>learn python + unix utilities
-      <li>used in research
-        <li>why pluto
-</ul>
-
-<h4>Lessons learned</h4>
-
-<p>Repeatability of data processing steps - hense, a pipeline. With any data set, data processing may require many, many steps. Automating the sequence of these steps simplifies everything: you can tweak and rerun as often as you like. With a dataset of this size, automating the pipleine is a must...
-
-<h4>Related items</h4>
-
-<p><b>The Avocado dataset:</b>
-<ul>
-  <li>Douglas Oard, William Webber, David Kirsch, and Sergey Golitsynskiy. 2015. <a href="">Avocado Research Email Collection</a>. LDC2015T03. DVD. Philadelphia: Linguistic Data Consortium. (2015).
-    <li><a href="">Documentation</a> describing the collection and the format (readme)
-      <li><a href="">Slides from my talk at DIRE-2012</a> (DC-area Information Retrieval Experts)
-</ul>
-
-<h4>Screenshots</h4>
-
-<div class="screenshots">
-
-  <div class="row">
-    <div class="col-md">
-      <img class="img-fluid" src="https://raw.githubusercontent.com/ic4f/oldcode-draft/master/uni-chfatech/screenshots/home.png?token=AF2SIkmjEA146n0dotwPv-goTWJQPpLaks5a_aW2wA%3D%3D">
-    </div>
-    <div class="col-md">
-      <img class="img-fluid" src="https://raw.githubusercontent.com/ic4f/oldcode-draft/master/uni-chfatech/screenshots/lab.png?token=AF2SIjEDFiAuiZjMFkN2KHeAxgOfyYtSks5a_aXHwA%3D%3D">
-    </div>
-    <div class="col">
-      <img class="img-fluid" src="https://raw.githubusercontent.com/ic4f/oldcode-draft/master/uni-chfatech/screenshots/cms-home.png?token=AF2SImdZu-naLDS2ZqeW08k-gZ7FxdjNks5a_aXAwA%3D%3D">
-    </div>
-    <div class="col">
-      <img class="img-fluid" src="https://raw.githubusercontent.com/ic4f/oldcode-draft/master/uni-chfatech/screenshots/cms-lab.png?token=AF2SIrFuRsGCvgMJzHOF42NUCho0yzAVks5a_aXEwA%3D%3D">
-    </div>
-  </div>
+</p>
+<ng-container *ngIf="hasCode(project)">
+  <p><span class="subheading">Code:</span> <span [innerHtml]="getCodeLink(project)"></span></p>
+</ng-container>
 
 </div>
+
+<p>{{ project.description }}</p>
+
+<div [innerHtml]="project.content"></div>
+

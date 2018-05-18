@@ -23,7 +23,7 @@ export class ProjectListComponent implements OnInit {
   selectedLanguage: string;
   selectedFramework: string;
   selectedDatabase: string;
-  displayedProjects: string[];
+  displayedProjects: Set<string>;
 
   constructor(
     private projectDataService: ProjectDataService,
@@ -33,7 +33,7 @@ export class ProjectListComponent implements OnInit {
 
   ngOnInit() {
     this.resetFilters();
-    this.resetDisplayedProjects();
+    this.displayedProjects = new Set();
     this.pageTitleService.setTitle('Selected Projects');
     this.initColors();
 
@@ -86,7 +86,7 @@ export class ProjectListComponent implements OnInit {
 
   reset() {
     this.resetFilters();
-    this.resetDisplayedProjects();
+    this.displayedProjects.clear();
     this.projects = this.projectDataService.projects;
   }
 
@@ -95,10 +95,6 @@ export class ProjectListComponent implements OnInit {
     this.selectedLanguage = '';
     this.selectedFramework = '';
     this.selectedDatabase = '';
-  }
-
-  resetDisplayedProjects() {
-    this.displayedProjects = [];
   }
 
   initColors() {
@@ -148,7 +144,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   filterBy(id: string, projectFeatures) {
-    this.resetDisplayedProjects();
+    this.displayedProjects.clear();
     if (id == "") {
       this.projects = this.projectDataService.projects;
     }
@@ -180,6 +176,9 @@ export class ProjectListComponent implements OnInit {
     let name: string = p.name;
     if (p.project_count > 1) {
       name += `<span class="project-count">(~${p.project_count} projects)</span>`;
+    }
+    if (p._id === 'prsa') {
+      name += `<span class="project-count">(multiple projects)</span>`;
     }
     return name;
   }
@@ -219,14 +218,22 @@ export class ProjectListComponent implements OnInit {
     return project.databases.map(item => item.name).join(', ');
   }
 
-  getCodeLink(project: Project): string {
-    if (project.github_repo !== '') {
-      return `<a target="_blank" href="${environment.githubBaseUrl}/${project.github_repo}"><span class="github">GitHub</span> repo</a>`;
+  getCodeLink(p: Project): string {
+    if (p.github_repo !== '') {
+      return `<a target="_blank" href="${environment.githubBaseUrl}/${p.github_repo}"><span class="github">GitHub</span> repo</a>`;
+    }
+    else if (p.github_oldcode !== '') {
+      const url = `${environment.githubBaseUrl}/${environment.githubOldcodeRepoSubdir}/${p.github_oldcode}`;
+      return `<a target="_blank" href="${url}"><span class="github">GitHub</span> oldcode repo</a>`;
     }
     return '';
   }
 
   showDetail(id: string) {
-    this.displayedProjects.push(id);
+    this.displayedProjects.add(id);
+  }
+
+  hideDetail(id: string) {
+    this.displayedProjects.delete(id);
   }
 }

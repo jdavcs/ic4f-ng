@@ -16,10 +16,10 @@ $gray8:  #777;
 $blue:   #1E76D4;
 $blue2: $blue * .9;
 $blue3: green; /* bootstrap  ?????*/
-/*$blue3: #007bff;*/ /* bootstrap */
 $blue5:   #1E76D4;
 $blue15: #4f9ce8;
 $green:  #26a300;
+$blue30: #007bff; /* bootstrap */
 
 a {
   color: $blue;
@@ -61,6 +61,13 @@ tr.found{
 table.ic4f-projects {
   font-size: .9em;
 
+  button {
+    color: $blue;
+  }
+  button:hover {
+    color: $green!important;
+  }
+
   th {
     white-space: nowrap;
   }
@@ -76,14 +83,9 @@ table.ic4f-projects {
       color: $blue2;
       display: block;
     }
-    a:hover {
-      color: $blue * 1.3; /* because i think this needs to be brighter */
-      text-decoration: none;
 
-      .project-comment-repo {
-        color: $blue3;
-        text-decoration: none;
-      }
+    a:hover {
+      text-decoration: none;
     }
 
   }
@@ -103,8 +105,8 @@ table.ic4f-projects {
   }
 
   .cell-project-detail {
-    padding: 1em!important;
-    background: #fffded!important;
+    padding: 1.5em!important;
+  /*  background: #fffded!important; */
   }
 
   .project-name {
@@ -138,6 +140,7 @@ table.ic4f-projects {
       display: block;
       width: 100%;
       padding: .5em 0 .5em 0;
+      /* color: $blue30; */
     }
   }
 
@@ -151,11 +154,46 @@ table.ic4f-projects {
 
 
   .screenshots {
-
     img {
-      margin-top: 1em;
+      margin-top: 2em;
     }
   }
+
+
+  .screenshots2 {
+    padding-left: 10%;
+    padding-right: 10%;
+
+    img {
+
+    }
+  }
+
+
+
+
+
+
+  .screenshot {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+
+.summary {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+
+  p {
+    margin-bottom: .3em;
+  }
+
+  .subheading {
+    font-weight: bold;
+  }
+}
+
+
 }
 
 
@@ -427,4 +465,29 @@ h4, h5, h6 {
 .selectedLanguage {
   font-weight: bold;
 }
+
+
+.showmore2 {
+  font-size: .85em;
+  display: block;
+  padding: 0 .5em!important;
+}
+
+.showmore {
+  padding: 0!important;
+  margin: 0!important;
+  font-size: .9em;
+  font-weight: bold;
+  display: block;
+}
+
+.showless {
+  float: right;
+  background: #fff;
+}
+
+
+
+
+
 
