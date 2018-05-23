@@ -1,32 +1,18 @@
 
-<button (click)="closeDetail()" class="btn btn-outline-primary showless">hide details</button>
+<button (click)="closeDetail()" class="btn btn-info btn-showless">close details</button>
 
 <h1>{{ project.name }}</h1>
 
+<div class="project-summary">
+  <p><span class="subheading">Developed:</span> {{ project.year_start | yearSpan: project.year_end }}</p>
 
-<div class="summary">
-<p><span class="subheading">Developed:</span> {{ project.year_start | yearSpan: project.year_end }}</p>
+  <p><span class="subheading">Technology:</span> {{ getTechnologyText(project) }}
+  </p>
 
-<p><span class="subheading">Technology:</span>
-
-<ng-container *ngIf="project.frameworks.length > 0">
-  {{ listFrameworks(project) }} /
-</ng-container>
-
-<ng-container *ngIf="project.databases.length > 0">
-  {{ listDatabases(project) }} /
-</ng-container>
-
-{{ listLanguages(project) }}
-
-</p>
-<ng-container *ngIf="hasCode(project)">
-  <p><span class="subheading">Code:</span> <span [innerHtml]="getCodeLink(project)"></span></p>
-</ng-container>
-
+  <ng-container *ngIf="hasCode(project)">
+    <p><span class="subheading">Code:</span> <span [innerHtml]="getCodeLink(project)"></span></p>
+  </ng-container>
 </div>
-
-<p>{{ project.description }}</p>
 
 <div [innerHtml]="project.content"></div>
 

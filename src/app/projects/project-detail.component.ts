@@ -18,6 +18,17 @@ export class ProjectDetailComponent implements OnInit {
     this.closeRequest.emit(this.project._id);
   }
 
+  getTechnologyText(project: Project): string {
+    let tech: string = '';
+    if (project.frameworks.length > 0) {
+      tech = this.listFrameworks(project) + ' / ';
+    }
+    if (project.databases.length > 0) {
+      tech += this.listDatabases(project) + ' / ';
+    }
+    return tech += this.listLanguages(project);
+  }
+
   listFrameworks(project: Project): string {
     return project.frameworks.map(item => item.name).join(', ');
   }
@@ -31,7 +42,7 @@ export class ProjectDetailComponent implements OnInit {
   }
 
   hasCode(p: Project): boolean {
-    return p.github_repo !== '' || p.github_oldcode !== '');
+    return p.github_repo !== '' || p.github_oldcode !== '';
   }
 
   getCodeLink(p: Project): string {

@@ -1,5 +1,7 @@
 @import "~variables.scss";
 
+
+
 html { margin-left: calc(100vw - 100%); } /* prevents 'jumping' caused by scroll bar */
 
 
@@ -20,6 +22,10 @@ $blue5:   #1E76D4;
 $blue15: #4f9ce8;
 $green:  #26a300;
 $blue30: #007bff; /* bootstrap */
+$blue40: #4a91dc; /* this is the C in the logo. Maybe replace blue2? */
+
+
+
 
 a {
   color: $blue;
@@ -29,24 +35,21 @@ a:hover {
   color: $green;
 }
 
-
 table.table-striped>tbody>tr:nth-child(odd)>td,
 table.table-striped>tbody>tr:nth-child(odd)>th,
 tr.found{
-  background-color: $gray7; 
+  background-color: $gray7;  
 }
 
 .ic4f-h-filter-container {
   margin-bottom: .5em;
 
   select, option, button {
-    font-size: .9em;
   }
 
   div {
     margin-bottom: .5em;
   }
-
   button.ic4f-reset {
     color: #495057; /* bootsrap custom select */
     border: 1px solid #ced4da; /*bootstrap custom select */
@@ -57,16 +60,17 @@ tr.found{
 
 
 
-
 table.ic4f-projects {
   font-size: .9em;
 
-  button {
+  button.btn-link {
     color: $blue;
   }
-  button:hover {
-    color: $green!important;
-  }
+
+
+
+
+
 
   th {
     white-space: nowrap;
@@ -106,7 +110,7 @@ table.ic4f-projects {
 
   .cell-project-detail {
     padding: 1.5em!important;
-  /*  background: #fffded!important; */
+    /*  background: #fffded!important; */
   }
 
   .project-name {
@@ -153,49 +157,75 @@ table.ic4f-projects {
   }
 
 
+  .xscreenshots2 {
+    padding-left: 10%;
+    padding-right: 10%;
+
+    img {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
+  .xscreenshot {
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+
+}
+
+
+
+
+
+
+
+$tmp42: $blue;
+
+.cell-project-detail {
+
+  .btn-showless {
+    float: right;
+    background: $blue40;
+  }
+  .btn-showless:hover {
+    background: $blue;
+  }
+
+  .project-summary {
+
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+
+    .subheading {
+      font-weight: bold;
+    }
+
+    p {
+      margin-bottom: .3em;
+    }
+  }
+
+
   .screenshots {
+    padding: 0 5%;
+    text-align: center;
+
     img {
-      margin-top: 2em;
+      margin: 1em 0;
+    }
+
+    img.noborder {
+      border: 0px #fff solid!important;
     }
   }
 
-
-  .screenshots2 {
-    padding-left: 10%;
-    padding-right: 10%;
-
-    img {
-
-    }
-  }
-
-
-
-
-
-
-  .screenshot {
-    padding-left: 10%;
-    padding-right: 10%;
-  }
-
-
-.summary {
-  margin-top: 1.5em;
-  margin-bottom: 1em;
-
-  p {
-    margin-bottom: .3em;
-  }
-
-  .subheading {
-    font-weight: bold;
+  .long-quote {
+    border-left: 10px #e4e4e4 solid;
+    padding-left: 1em;
+    margin-left: .5em;
   }
 }
-
-
-}
-
 
 
 
@@ -315,7 +345,7 @@ body {
 .ic4f-container {}
 
 .ic4f-main-heading {
-  margin: .3em 0 1em 0;
+  margin: .3em 0 .6em 0;
 }
 
 
@@ -481,10 +511,15 @@ h4, h5, h6 {
   display: block;
 }
 
-.showless {
-  float: right;
-  background: #fff;
+
+
+
+
+
+table.tablesummary td {
+  background-color: white;
 }
+
 
 
 
