@@ -5,6 +5,7 @@ import { Project } from './project';
 import { Feature } from './feature';
 import { ProjectDataService } from './project-data.service';
 import { ProjectService } from './project.service';
+import { ProjectViewService } from './project-view.service';
 import { PageTitleService } from '../shared/page-title.service';
 
 @Component({
@@ -17,7 +18,6 @@ export class ProjectListComponent implements OnInit {
   languages: Feature[];
   frameworks: Feature[];
   databases: Feature[];
-  langColors: Map<string, string>;
 
   selectedGroup: string;
   selectedLanguage: string;
@@ -28,6 +28,7 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private projectDataService: ProjectDataService,
     private projectService: ProjectService,
+    private projectViewService: ProjectViewService,
     private pageTitleService: PageTitleService
   ) {}
 
@@ -35,7 +36,7 @@ export class ProjectListComponent implements OnInit {
     this.resetFilters();
     this.displayedProjects = new Set();
     this.pageTitleService.setTitle('Selected Projects');
-    this.initColors();
+    //this.initColors();
 
     /* If cache is empty: retrieve data from db; store in cache; unsubscribe;
      * else: get data from cache
@@ -95,28 +96,6 @@ export class ProjectListComponent implements OnInit {
     this.selectedLanguage = '';
     this.selectedFramework = '';
     this.selectedDatabase = '';
-  }
-
-  initColors() {
-    this.langColors = new Map();
-    this.langColors.set('bash', 'lang-bash'); 
-    this.langColors.set('c', 'lang-c');
-    this.langColors.set('c_sharp', 'lang-cs');
-    this.langColors.set('html', 'lang-htmlcss');
-    this.langColors.set('css', 'lang-htmlcss');
-    this.langColors.set('java', 'lang-java');
-    this.langColors.set('javascript', 'lang-javascript');
-    this.langColors.set('mumps', 'lang-mumps');
-    this.langColors.set('php', 'lang-php');
-    this.langColors.set('python', 'lang-python');
-    this.langColors.set('ruby', 'lang-ruby');
-    this.langColors.set('sql', 'lang-sql');
-    this.langColors.set('sass', 'lang-sass');
-    this.langColors.set('typescript', 'lang-typescript');
-    this.langColors.set('vbnet', 'lang-vbnet');
-    this.langColors.set('vbscript', 'lang-vbscript');
-    this.langColors.set('vimscript', 'lang-vimscript');
-    this.langColors.set('yaml', 'lang-yaml');
   }
 
   filterByGroup(id: string) {
@@ -184,49 +163,19 @@ export class ProjectListComponent implements OnInit {
   }
 
   listLanguages(p: Project): string {
-    const newList = [];
-    let foundHtml: boolean = false;
-
-    for (let lang of p.languages) {
-      /* combine HTML and CSS into HTML/CSS. Because why not! */
-      let name: string = lang.name;
-      if (lang._id === 'html') {
-        foundHtml = true;
-        name = 'HTML/CSS';
-      }
-      else if (foundHtml && lang._id === 'css') {
-        name = '';
-      }
-
-      if (name != '') { /* this ignores 'CSS' set to empty */
-        name = `<span class="${this.langColors.get(lang._id)} ${this.getSelectedLanguageClass(lang._id)}">${name}</span>`;
-        newList.push(name);
-      }
-    }
-    return newList.join(', ');
-  }
-
-  getSelectedLanguageClass(id) {
-    return id == this.selectedLanguage ? 'selectedLanguage' : '';
+    return this.projectViewService.listLanguages(p, this.selectedLanguage);
   }
 
   listFrameworks(project: Project): string {
-    return project.frameworks.map(item => item.name).join(', ');
+    return this.projectViewService.listFrameworks(project);
   }
 
   listDatabases(project: Project): string {
-    return project.databases.map(item => item.name).join(', ');
+    return this.projectViewService.listDatabases(project);
   }
 
   getCodeLink(p: Project): string {
-    if (p.github_repo !== '') {
-      return `<a target="_blank" href="${environment.githubBaseUrl}/${p.github_repo}"><span class="github">GitHub</span> repo</a>`;
-    }
-    else if (p.github_oldcode !== '') {
-      const url = `${environment.githubBaseUrl}/${environment.githubOldcodeRepoSubdir}/${p.github_oldcode}`;
-      return `<a target="_blank" href="${url}"><span class="github">GitHub</span> oldcode repo</a>`;
-    }
-    return '';
+    return this.projectViewService.getCodeLink(p);
   }
 
   showDetail(id: string) {

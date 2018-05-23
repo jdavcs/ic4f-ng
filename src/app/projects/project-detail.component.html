@@ -6,13 +6,12 @@
 <div class="project-summary">
   <p><span class="subheading">Developed:</span> {{ project.year_start | yearSpan: project.year_end }}</p>
 
-  <p><span class="subheading">Technology:</span> {{ getTechnologyText(project) }}
-  </p>
+  <p><span class="subheading">Technology:</span> <span [innerHtml]="getTechnologyText(project)"></span></p>
 
   <ng-container *ngIf="hasCode(project)">
     <p><span class="subheading">Code:</span> <span [innerHtml]="getCodeLink(project)"></span></p>
   </ng-container>
 </div>
 
-<div [innerHtml]="project.content"></div>
+<div [innerHtml]="project.content | sanitizeHtml"></div>
 
