@@ -4,17 +4,15 @@ import { NgModule }         from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PagesModule }      from './pages/pages.module';
-//import { PostsModule }      from './posts/posts.module';
 import { ProjectsModule }   from './projects/projects.module';
 
 import { AppComponent }          from './app.component';
 import { HomeComponent }         from './home.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
-import { PageService }    from './pages/page.service';
-import { ProjectDataService }    from './projects/project-data.service';
-//import { PostService }    from './posts/post.service';
-import { ProjectService } from './projects/project.service';
+import { PageService }        from './pages/page.service';
+import { ProjectDataService } from './projects/project-data.service';
+import { ProjectService }     from './projects/project.service';
 
 @NgModule({
   imports: [
@@ -22,7 +20,6 @@ import { ProjectService } from './projects/project.service';
     HttpClientModule,
     ProjectsModule, //must come before pages
     PagesModule,
-    //PostsModule,
     AppRoutingModule //must come last
   ],
   declarations: [
@@ -32,7 +29,6 @@ import { ProjectService } from './projects/project.service';
   ],
   providers: [
     PageService,
-    //PostService,
     ProjectDataService,
     ProjectService
   ],
