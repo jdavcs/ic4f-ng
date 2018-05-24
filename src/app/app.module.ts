@@ -10,7 +10,6 @@ import { AppComponent }          from './app.component';
 import { HomeComponent }         from './home.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
-import { PageService }        from './pages/page.service';
 import { ProjectDataService } from './projects/project-data.service';
 import { ProjectService }     from './projects/project.service';
 
@@ -28,7 +27,6 @@ import { ProjectService }     from './projects/project.service';
     PageNotFoundComponent
   ],
   providers: [
-    PageService,
     ProjectDataService,
     ProjectService
   ],

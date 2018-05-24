@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { PageComponent }         from './page.component';
-import { PageNotFoundComponent } from '../pagenotfound.component';
+import { AboutPageComponent }         from './about-page.component';
 
 const pageRoutes: Routes = [
-  { path: '404', component: PageNotFoundComponent },
-  { path: ':id', component: PageComponent }
+  { path: 'about', component: AboutPageComponent }
 ]
 
 @NgModule({

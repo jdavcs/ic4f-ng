@@ -42,8 +42,6 @@ export class ProjectListComponent implements OnInit {
      * else: get data from cache
      */
     if (!this.projectDataService.isDataLoaded()) {
-      console.log('calling db!'); //TODO remove this
-
       let projSubscription = this.projectService.getProjects().subscribe(data => {
         this.projects = data;
         this.projectDataService.projects = data;
@@ -76,7 +74,6 @@ export class ProjectListComponent implements OnInit {
 
     }
     else {
-      console.log('calling cache'); //TODO remove this
       this.projects = this.projectDataService.projects;
       this.languages = this.projectDataService.languages;
       this.groups = this.projectDataService.groups;
