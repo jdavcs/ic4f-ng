@@ -9,8 +9,7 @@ import { ProjectViewService } from './project-view.service';
 import { PageTitleService } from '../shared/page-title.service';
 
 @Component({
-  templateUrl: './project-list.component.html',
-  styleUrls: [ './project-list.component.scss' ]
+  templateUrl: './project-list.component.html'
 })
 export class ProjectListComponent implements OnInit {
   projects: Project[];
