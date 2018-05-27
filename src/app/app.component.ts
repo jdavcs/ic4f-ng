@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   title: string = '';
 
   constructor(
-    private pageTitleService: PageTitleService,
+       private pageTitleService: PageTitleService,
     private titleService: Title
   ) {}
 

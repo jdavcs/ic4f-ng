@@ -13,4 +13,4 @@ import { AboutPageComponent }      from './about-page.component';
     AboutPageComponent
   ]
 })
-export class PagesModule { }
+export class PagesModule {} 

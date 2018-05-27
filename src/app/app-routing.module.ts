@@ -1,10 +1,14 @@
 import { NgModule }              from '@angular/core';
-import { RouterModule, Routes }  from '@angular/router';
+import { RouterModule, Routes, PreloadAllModules }  from '@angular/router';
 
 import { HomeComponent }         from './home.component';
 import { PageNotFoundComponent } from './pagenotfound.component';
 
 const appRoutes: Routes = [
+  { 
+    path: 'projects', 
+    loadChildren: 'app/projects/projects.module#ProjectsModule'
+  },
   { path: '', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent }
 ]
@@ -13,7 +17,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing : false } //true for debug only
+      { 
+        preloadingStrategy: PreloadAllModules,
+        enableTracing : false  //debug only
+      }
     )
   ],
   exports: [
