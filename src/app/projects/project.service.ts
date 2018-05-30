@@ -39,4 +39,10 @@ export class ProjectService {
     const url = ProjectService.READ_URL_DATABASES;
     return this.http.get<Feature[]>(url);
   }
+
+  getProject(projectId: string): Observable<Project> {
+    const url = `${ProjectService.READ_URL_PROJECTS}/${projectId}`;
+    return this.http.get<Project>(url);
+  }
+
 }

@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { ProjectsComponent }      from './projects.component';
 import { ProjectDetailComponent } from './project-detail.component';
 import { ProjectListComponent }   from './project-list.component';
+import { ProjectPageComponent }   from './project-page.component';
 
 import { ProjectDataService }     from './project-data.service';
 import { ProjectService }         from './project.service';
@@ -23,7 +24,8 @@ import { ProjectsRoutingModule } from './projects-routing.module';
   declarations: [ 
     ProjectsComponent,
     ProjectDetailComponent,
-    ProjectListComponent
+    ProjectListComponent,
+    ProjectPageComponent
   ],
   providers: [
     ProjectDataService,

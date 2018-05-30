@@ -87,7 +87,7 @@
 
       <ng-container *ngIf="displayedProjects.has(p._id)">
         <td class="text-center cell-project-detail-num">{{i+1}}</td>
-        <td colspan="7" class="cell-project-detail">
+        <td colspan="7" class="cell-project-detail ic4f-project-detail">
           <app-project-detail [project]="p" (closeRequest)="hideDetail($event)"></app-project-detail>
         </td>
       </ng-container>
