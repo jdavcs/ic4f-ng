@@ -22,19 +22,12 @@ export class ProjectDetailComponent implements OnInit {
     this.closeRequest.emit(this.project._id);
   }
 
-  getTechnologyText(project: Project): string {
-    let tech: string = '';
-    if (project.frameworks.length > 0) {
-      tech = this.projectViewService.listFrameworks(project) + ' / ';
-    }
-    if (project.databases.length > 0) {
-      tech += this.projectViewService.listDatabases(project) + ' / ';
-    }
-    return tech += this.projectViewService.listLanguages(project);
+  getTechnologyText(p: Project): string {
+    return this.projectViewService.getTechnologyText(p);
   }
 
   hasCode(p: Project): boolean {
-    return p.github_repo !== '' || p.github_oldcode !== '';
+    return this.projectViewService.hasCode(p);
   }
 
   getCodeLink(p: Project): string {

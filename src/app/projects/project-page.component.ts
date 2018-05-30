@@ -34,28 +34,17 @@ export class ProjectPageComponent implements OnInit {
         },
         error => { this.router.navigate(['/404']); } //TODO can't be right
       );
+  }
 
+  getTechnologyText(p: Project): string {
+    return this.projectViewService.getTechnologyText(p);
+  }
+
+  hasCode(p: Project): boolean {
+    return this.projectViewService.hasCode(p);
   }
 
   getCodeLink(p: Project): string {
     return this.projectViewService.getCodeLink(p);
   }
-
-  hasCode(p: Project): boolean {
-    return p.github_repo !== '' || p.github_oldcode !== '';
-  }
-
-  getTechnologyText(project: Project): string {
-    let tech: string = '';
-    if (project.frameworks.length > 0) {
-      tech = this.projectViewService.listFrameworks(project) + ' / ';
-    }
-    if (project.databases.length > 0) {
-      tech += this.projectViewService.listDatabases(project) + ' / ';
-    }
-    return tech += this.projectViewService.listLanguages(project);
-  }
-
-
 }
-

@@ -54,6 +54,21 @@ export class ProjectViewService {
     return '';
   }
 
+  hasCode(p: Project): boolean {
+    return p.github_repo !== '' || p.github_oldcode !== '';
+  }
+
+  getTechnologyText(p: Project): string {
+    let tech: string = '';
+    if (p.frameworks.length > 0) {
+      tech = this.listFrameworks(p) + ' / ';
+    }
+    if (p.databases.length > 0) {
+      tech += this.listDatabases(p) + ' / ';
+    }
+    return tech += this.listLanguages(p);
+  }
+
   initColors() {
     this.langColors = new Map();
     this.langColors.set('bash', 'lang-bash'); 
