@@ -264,6 +264,15 @@ table.ic4f-projects {
 
 .ic4f-project-detail {
 
+  .btn-view-all {
+    padding: 0;
+    font-size: .9em;
+    display: block;
+  }
+  .btn-view-all:hover {
+    color: $green;
+  }
+
   .project-summary {
     margin: 1.5em 0 1em 0;
 

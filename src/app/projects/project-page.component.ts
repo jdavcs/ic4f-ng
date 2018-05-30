@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras, ParamMap } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 
 import { Project } from './project';
@@ -19,7 +20,7 @@ export class ProjectPageComponent implements OnInit {
     private router: Router,
     private projectService: ProjectService,
     private projectViewService: ProjectViewService,
-    private pageTitleService: PageTitleService
+    private titleService: Title
   ) {}
 
   ngOnInit() {
@@ -30,10 +31,15 @@ export class ProjectPageComponent implements OnInit {
       .subscribe( 
         data => { 
           this.project = data; 
-          this.pageTitleService.setTitle(this.project.name);
+          this.setDocTitle(this.project.name);
         },
-        error => { this.router.navigate(['/404']); } //TODO can't be right
+        error => { this.router.navigate(['/404']); } //TODO
       );
+  }
+
+  setDocTitle(title: string) {
+    let docTitle: string = environment.docTitlePrefix + title;
+    this.titleService.setTitle(docTitle);
   }
 
   getTechnologyText(p: Project): string {
@@ -46,5 +52,9 @@ export class ProjectPageComponent implements OnInit {
 
   getCodeLink(p: Project): string {
     return this.projectViewService.getCodeLink(p);
+  }
+
+  goToProjects() {
+    this.router.navigate(['/projects']);
   }
 }

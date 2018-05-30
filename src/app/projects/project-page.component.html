@@ -1,8 +1,8 @@
-link to projects here...
-
 <div class="ic4f-project-detail" *ngIf="project">
 
-<h1>{{ project.name }}</h1>
+<button (click)="goToProjects()" class="btn btn-link btn-view-all">View all projects</button>
+
+<h1 class="ic4f-main-heading">{{ project.name }}</h1>
 
 <div class="project-summary">
   <p><span class="subheading">Developed:</span> {{ project.year_start | yearSpan: project.year_end }}</p>

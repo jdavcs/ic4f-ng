@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 
 import { Project } from './project';
@@ -6,7 +7,6 @@ import { Feature } from './feature';
 import { ProjectDataService } from './project-data.service';
 import { ProjectService } from './project.service';
 import { ProjectViewService } from './project-view.service';
-import { PageTitleService } from '../shared/page-title.service';
 
 @Component({
   templateUrl: './project-list.component.html'
@@ -28,14 +28,13 @@ export class ProjectListComponent implements OnInit {
     private projectDataService: ProjectDataService,
     private projectService: ProjectService,
     private projectViewService: ProjectViewService,
-    private pageTitleService: PageTitleService
+    private titleService: Title
   ) {}
 
   ngOnInit() {
     this.resetFilters();
     this.displayedProjects = new Set();
-    this.pageTitleService.setTitle('Selected Projects');
-    //this.initColors();
+    this.setDocTitle();
 
     /* If cache is empty: retrieve data from db; store in cache; unsubscribe;
      * else: get data from cache
@@ -129,6 +128,11 @@ export class ProjectListComponent implements OnInit {
         projectFeatures(project).map(item => item._id).indexOf(id) > -1
       );
     }
+  }
+
+  setDocTitle() {
+    let docTitle: string = environment.docTitlePrefix + 'Selected Projects';
+    this.titleService.setTitle(docTitle);
   }
 
   projectGroup(project: Project): Feature[] {

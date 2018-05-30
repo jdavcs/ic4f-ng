@@ -9,17 +9,13 @@ import { PageTitleService } from './shared/page-title.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  title: string = '';
-
   constructor(
-       private pageTitleService: PageTitleService,
+    private pageTitleService: PageTitleService,
     private titleService: Title
   ) {}
 
   ngOnInit() {
     this.pageTitleService.titleChanged$.subscribe(title => {
-      this.title = title;
-
       let docTitle: string = environment.docTitlePrefix + title;
       if (title === '') {
         docTitle = environment.defaultDocTitle;
