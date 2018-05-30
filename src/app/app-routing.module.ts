@@ -19,7 +19,7 @@ const appRoutes: Routes = [
       appRoutes,
       { 
         preloadingStrategy: PreloadAllModules,
-        enableTracing : false  //debug only
+        enableTracing : false//debug only
       }
     )
   ],
